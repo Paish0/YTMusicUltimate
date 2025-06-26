@@ -44,16 +44,16 @@ jobs:
           ref: 4bcc52914e0eeca719288522938185decaa8a1cb
           path: theos
           submodules: recursive
-      
+
       - name: SDK Caching
         id: SDK
         uses: actions/cache@v4.0.1
-        env:
-          cache-name: iOS-16.2-SDK
         with:
           path: theos/sdks/
-          key: ${{ env.cache-name }}
-          restore-keys: ${{ env.cache-name }}
+          key: iOS-16.2-SDK
+          restore-keys: |
+            iOS-16.2-SDK
+
 
       - name: Download iOS SDK
         if: steps.SDK.outputs.cache-hit != 'true'
@@ -123,7 +123,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: softprops/action-gh-release@v2.0.1
+        uses: softprops/action-gh-release@v4.0.1
         with:
           tag_name: YTMusicUltimate-v${{ github.run_number }}
           name: YTMusicUltimate-v${{ github.run_number }}
